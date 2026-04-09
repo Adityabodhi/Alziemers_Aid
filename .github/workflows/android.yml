@@ -2,27 +2,30 @@ name: Build Android APK
 
 on:
   push:
-      branches: [ main, master ]
-        pull_request:
-            branches: [ main, master ]
-            jobs:
-              build:
-                  runs-on: ubuntu-latest
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
-                      steps:
-                            - uses: actions/checkout@v4
-                                  - name: Get Date
-                                          id: get-date
-                                                  run: |
-                                                            echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-                                                                  - name: Build with Buildozer
-                                                                          uses: ArtemSBulgakov/buildozer-action@v1
-                                                                                  with:
-                                                                                            save_buildozer_cache: true
-                                                                                                      buildozer_version: master
-                                                                                                            - name: Upload Artifact
-                                                                                                                    uses: actions/upload-artifact@v4
-                                                                                                                            with:
-                                                                                                                                      name: package
-                                                                                                                                                path: bin/*.apk
-                                                                                                                                                
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          save_buildozer_cache: true
+          buildozer_version: master
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: bin/*.apk
