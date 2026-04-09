@@ -1,0 +1,48 @@
+<RemindersScreen>:
+    name: 'reminders'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "12dp"
+        
+        MDTopAppBar:
+            title: app.tr("reminders")
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'home')]]
+            elevation: 2
+            
+        MDCard:
+            orientation: 'vertical'
+            padding: "16dp"
+            spacing: "8dp"
+            size_hint_y: None
+            height: "280dp"
+            elevation: 1
+            
+            MDTextField:
+                id: reminder_title_input
+                hint_text: app.tr("title")
+                helper_text: "What do you need to remember?"
+                helper_text_mode: "on_focus"
+                
+            MDTextField:
+                id: reminder_time_input
+                hint_text: app.tr("time") + " (HH:MM)"
+                helper_text: "Example: 14:30"
+                helper_text_mode: "on_focus"
+                
+            MDBoxLayout:
+                adaptive_height: True
+                spacing: "20dp"
+                MDLabel:
+                    text: app.tr("recurring")
+                MDSwitch:
+                    id: reminder_recurring_switch
+                    
+            MDRaisedButton:
+                text: app.tr("add_reminder")
+                pos_hint: {"center_x": .5}
+                on_release: root.add_reminder()
+
+        MDScrollView:
+            MDList:
+                id: reminder_list

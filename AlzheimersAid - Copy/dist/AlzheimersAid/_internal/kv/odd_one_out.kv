@@ -1,0 +1,22 @@
+<OddOneOutScreen>:
+    name: 'odd_one_out'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "12dp"
+        
+        MDTopAppBar:
+            title: "Odd One Out"
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'games_menu')]]
+            elevation: 2
+            
+        MDLabel:
+            text: "Tap the one that is different"
+            halign: "center"
+            adaptive_height: True
+
+        MDGridLayout:
+            id: game_grid
+            cols: 3
+            spacing: "16dp"
+            padding: "16dp"

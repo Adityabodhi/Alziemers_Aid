@@ -1,0 +1,32 @@
+<ColorRecognitionScreen>:
+    name: 'color_recognition'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "20dp"
+        
+        MDTopAppBar:
+            title: app.translator.translate("color_rec") if app.lang_code else ""
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'games_menu')]]
+            elevation: 2
+            
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: "30dp"
+            AnchorLayout:
+                size_hint_y: 0.3
+                MDLabel:
+                    id: prompt_label
+                    text: ""
+                    halign: "center"
+                    font_style: "H4"
+                    bold: True
+            
+            AnchorLayout:
+                size_hint_y: 0.7
+                MDGridLayout:
+                    id: game_grid
+                    cols: 2
+                    spacing: "20dp"
+                    padding: "20dp"
+                    adaptive_size: True

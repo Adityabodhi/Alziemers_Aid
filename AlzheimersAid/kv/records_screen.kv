@@ -1,0 +1,37 @@
+<RecordsScreen>:
+    name: 'records'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "12dp"
+        
+        MDTopAppBar:
+            title: app.tr("medical_records")
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'home')]]
+            elevation: 2
+            
+        MDCard:
+            orientation: 'vertical'
+            padding: "16dp"
+            spacing: "8dp"
+            size_hint_y: None
+            height: "260dp"
+            elevation: 1
+            
+            MDTextField:
+                id: record_title_input
+                hint_text: app.tr("title")
+                
+            MDTextField:
+                id: record_details_input
+                hint_text: app.tr("details")
+                multiline: True
+                
+            MDRaisedButton:
+                text: app.tr("add_record")
+                pos_hint: {"center_x": .5}
+                on_release: root.add_record()
+
+        MDScrollView:
+            MDList:
+                id: record_list

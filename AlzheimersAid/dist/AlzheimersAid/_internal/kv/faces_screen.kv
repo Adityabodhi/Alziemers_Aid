@@ -1,0 +1,50 @@
+<FacesScreen>:
+    name: 'faces'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "12dp"
+        
+        MDTopAppBar:
+            title: app.tr("faces")
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'home')]]
+            elevation: 2
+            
+        MDCard:
+            orientation: 'vertical'
+            padding: "16dp"
+            spacing: "8dp"
+            size_hint_y: None
+            height: "320dp"
+            elevation: 1
+            
+            MDTextField:
+                id: face_name_input
+                hint_text: app.tr("name")
+                helper_text: "Type name of the person"
+                helper_text_mode: "on_focus"
+                
+            MDTextField:
+                id: face_relation_input
+                hint_text: app.tr("relation")
+                helper_text: "Example: Son, Sister, Best Friend"
+                helper_text_mode: "on_focus"
+                
+            MDBoxLayout:
+                adaptive_height: True
+                spacing: "20dp"
+                MDRaisedButton:
+                    text: app.tr("photo")
+                    on_release: root.open_file_manager('photo')
+                MDRaisedButton:
+                    text: app.tr("audio")
+                    on_release: root.open_file_manager('audio')
+                    
+            MDRaisedButton:
+                text: app.tr("save")
+                pos_hint: {"center_x": .5}
+                on_release: root.add_face()
+
+        MDScrollView:
+            MDList:
+                id: face_list

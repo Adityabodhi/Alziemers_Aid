@@ -1,0 +1,11 @@
+kivy==2.3.1
+kivymd==1.2.0
+deep_translator
+pyttsx3
+requests
+pyinstaller
+plyer
+certifi
+urllib3
+# Android specific
+android

@@ -1,0 +1,64 @@
+<GamesMenu>:
+    name: 'games_menu'
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDBoxLayout:
+            size_hint_y: None
+            height: "64dp"
+            md_bg_color: app.theme_cls.primary_color
+            padding: ["8dp", 0, "8dp", 0]
+            spacing: "12dp"
+            elevation: 2
+            
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                pos_hint: {"center_y": .5}
+                on_release: app.root.current = 'home'
+                
+            MDLabel:
+                text: app.translator.translate("games") if app.lang_code else ""
+                halign: "center"
+                valign: "middle"
+                font_style: "H6"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                font_name: "Devanagari" if app.lang_code in ["hi", "mr"] else "Roboto"
+                bold: True
+                
+            Widget: # Spacer
+                size_hint_x: None
+                width: "48dp"
+            
+        ScrollView:
+            MDGridLayout:
+                cols: 2
+                spacing: "16dp"
+                padding: "16dp"
+                adaptive_height: True
+
+                MenuCard:
+                    text_key: "memory_match"
+                    icon: "brain"
+                    bg_color: (0.24, 0.44, 0.89, 1)
+                    on_release: app.root.current = 'memory_match'
+
+                MenuCard:
+                    text_key: "odd_one_out"
+                    icon: "format-list-bulleted-type"
+                    bg_color: (0.13, 0.65, 0.31, 1)
+                    on_release: app.root.current = 'odd_one_out'
+
+                MenuCard:
+                    text_key: "picture_rec"
+                    icon: "image-search"
+                    bg_color: (1, 0.64, 0, 1)
+                    on_release: app.root.current = 'picture_recognition'
+
+                MenuCard:
+                    text_key: "color_rec"
+                    icon: "palette"
+                    bg_color: (0.61, 0.3, 0.77, 1)
+                    on_release: app.root.current = 'color_recognition'

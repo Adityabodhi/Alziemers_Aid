@@ -1,0 +1,15 @@
+<CaregiverScreen>:
+    name: 'caregiver'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "12dp"
+        
+        MDTopAppBar:
+            title: app.tr("caregiver")
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'home')]]
+            elevation: 2
+            
+        MDScrollView:
+            MDList:
+                id: activity_list

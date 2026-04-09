@@ -1,0 +1,201 @@
+#:include kv/reminders_screen.kv
+#:include kv/faces_screen.kv
+#:include kv/emergency_screen.kv
+#:include kv/gps_screen.kv
+#:include kv/caregiver_screen.kv
+#:include kv/records_screen.kv
+#:include kv/companion_screen.kv
+#:include kv/games_menu.kv
+#:include kv/games_screen.kv
+#:include kv/odd_one_out.kv
+#:include kv/picture_recognition.kv
+#:include kv/color_recognition.kv
+
+ScreenManager:
+    id: screen_manager
+    HomeScreen:
+        id: home_screen
+        name: 'home'
+    RemindersScreen:
+    FacesScreen:
+    EmergencyScreen:
+    GPSScreen:
+    CaregiverScreen:
+    RecordsScreen:
+    CompanionScreen:
+    GamesMenu:
+    MemoryMatchScreen:
+    OddOneOutScreen:
+    PictureRecognitionScreen:
+    ColorRecognitionScreen:
+
+<HomeScreen@Screen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        # CUSTOM TOOLBAR
+        MDBoxLayout:
+            size_hint_y: None
+            height: "64dp"
+            md_bg_color: app.theme_cls.primary_color
+            padding: ["8dp", 0, "8dp", 0]
+            spacing: "12dp"
+            elevation: 4
+            
+            Widget: # Spacer
+                size_hint_x: None
+                width: "48dp"
+                
+            MDLabel:
+                text: app.translator.translate("app_title") if app.lang_code else ""
+                halign: "center"
+                valign: "middle"
+                font_style: "H6"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                font_name: "Devanagari" if app.lang_code in ["hi", "mr"] else "Roboto"
+                bold: True
+                
+            MDIconButton:
+                icon: "translate"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                pos_hint: {"center_y": .5}
+                on_release: app.open_menu(self)
+            
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                orientation: 'vertical'
+                padding: "16dp"
+                spacing: "20dp"
+                adaptive_height: True
+                
+                MDCard:
+                    orientation: 'vertical'
+                    padding: "16dp"
+                    size_hint_y: None
+                    height: "160dp"
+                    elevation: 2
+                    md_bg_color: app.theme_cls.primary_color
+                    radius: [24,]
+                    
+                    MDLabel:
+                        id: time_label
+                        text: "00:00:00"
+                        halign: "center"
+                        font_style: "H3"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        
+                    MDLabel:
+                        id: date_label
+                        text: ""
+                        halign: "center"
+                        font_style: "Subtitle1"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 0.8
+                
+                MDLabel:
+                    id: offline_label
+                    text: "⚠️ Offline Mode"
+                    halign: "center"
+                    theme_text_color: "Error"
+                    opacity: 0
+                    adaptive_height: True
+
+                MDGridLayout:
+                    cols: 2
+                    spacing: "16dp"
+                    adaptive_height: True
+                    
+                    MenuCard:
+                        text_key: "companion"
+                        icon: "robot"
+                        bg_color: (0.07, 0.45, 0.87, 1) # Deep Blue
+                        on_release: root.manager.current = 'companion'
+                        
+                    MenuCard:
+                        text_key: "reminders"
+                        icon: "alarm"
+                        bg_color: (0.24, 0.44, 0.89, 1)
+                        on_release: root.manager.current = 'reminders'
+                        
+                    MenuCard:
+                        text_key: "faces"
+                        icon: "account-group"
+                        bg_color: (0.13, 0.65, 0.31, 1)
+                        on_release: root.manager.current = 'faces'
+                        
+                    MenuCard:
+                        text_key: "location"
+                        icon: "map-marker"
+                        bg_color: (1, 0.64, 0, 1)
+                        on_release: root.manager.current = 'gps'
+                        
+                    MenuCard:
+                        text_key: "games"
+                        icon: "controller-classic"
+                        bg_color: (0.61, 0.3, 0.77, 1)
+                        on_release: root.manager.current = 'games_menu'
+                        
+                    MenuCard:
+                        text_key: "emergency"
+                        icon: "alert-octagon"
+                        bg_color: (0.89, 0.13, 0.13, 1)
+                        on_release: root.manager.current = 'emergency'
+                        
+                    MenuCard:
+                        text_key: "medical_records"
+                        icon: "file-document"
+                        bg_color: (0.1, 0.75, 0.75, 1)
+                        on_release: root.manager.current = 'records'
+
+                    MenuCard:
+                        text_key: "caregiver"
+                        icon: "clipboard-list"
+                        bg_color: (0.4, 0.4, 0.4, 1)
+                        on_release: root.manager.current = 'caregiver'
+                
+                Widget:
+                    size_hint_y: None
+                    height: "20dp"
+
+<MenuCard@MDCard>:
+    text_key: ""
+    icon: ""
+    bg_color: [1, 1, 1, 1]
+    orientation: 'vertical'
+    padding: "16dp"
+    spacing: "8dp"
+    size_hint_y: None
+    height: "140dp"
+    elevation: 4
+    ripple_behavior: True
+    radius: [24,]
+    md_bg_color: self.bg_color
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        md_bg_color: self.parent.md_bg_color
+        radius: [24,]
+        
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            size_hint_y: 0.6
+            MDIcon:
+                icon: root.icon
+                font_size: "42sp"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                
+        MDLabel:
+            text: app.tr(root.text_key)
+            halign: "center"
+            font_size: "16sp"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            bold: True
+            font_name: "Devanagari" if app.lang_code in ["hi", "mr"] else "Roboto"
+            size_hint_y: 0.4
