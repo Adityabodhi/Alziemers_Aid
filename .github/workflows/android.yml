@@ -42,10 +42,11 @@ jobs:
 
       - name: Build APK with Buildozer
         run: |
+          cd AlzheimersAid
           yes | buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: bin/*.apk
+          path: AlzheimersAid/bin/*.apk
