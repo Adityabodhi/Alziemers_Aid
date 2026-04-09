@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -43,8 +43,8 @@ jobs:
       - name: Build APK with Buildozer
         run: |
           cd AlzheimersAid
-          # Run buildozer explicitly natively
-          buildozer -v android debug
+          # Run buildozer and capture logs if gradle crashes
+          buildozer -v android debug > build.log 2>&1 || (tail -n 300 build.log && exit 1)
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
