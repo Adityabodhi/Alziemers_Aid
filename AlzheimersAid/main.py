@@ -47,8 +47,8 @@ from translator_engine import TranslatorEngine
 
 def get_db_path():
     if platform == 'android':
-        from android.storage import app_storage_dir
-        return os.path.join(app_storage_dir(), "alz_aid.db")
+        from android.storage import app_storage_path
+        return os.path.join(app_storage_path(), "alz_aid.db")
     return resource_path("data/alz_aid.db")
 
 DB_PATH = get_db_path()
