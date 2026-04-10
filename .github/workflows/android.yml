@@ -41,10 +41,22 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Build APK with Buildozer
+        id: build_apk
+        continue-on-error: true
         run: |
           cd AlzheimersAid
-          # Run buildozer and capture logs if gradle crashes
-          buildozer -v android debug > build.log 2>&1 || (tail -n 300 build.log && exit 1)
+          # Run buildozer and capture logs
+          buildozer -v android debug > build.log 2>&1
+
+      - name: Commit build log on failure
+        if: steps.build_apk.outcome == 'failure'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add AlzheimersAid/build.log || true
+          git commit -m "Upload build log for remote debugging" || true
+          git push origin HEAD:${GITHUB_REF} || true
+          exit 1
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

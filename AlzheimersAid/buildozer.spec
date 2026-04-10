@@ -7,7 +7,7 @@ source.include_exts = py,png,jpg,kv,ttf,db
 source.include_patterns = assets/*,fonts/*,kv/*,data/*,screens/*
 version = 1.0.0
 # Requirements
-requirements = python3,kivy==2.3.1,kivymd==1.2.0,requests,deep_translator,certifi,urllib3,plyer,sqlite3,android
+requirements = python3,kivy==2.3.1,kivymd==1.2.0,pillow,requests,deep_translator,certifi,urllib3,plyer,sqlite3,android
 orientation = portrait
 fullscreen = 0
 # Icons/Presplash (use existing if available)
